@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Orders Table</title>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Products</th>
+          <th>Total Amount</th>
+          <th>Logistics</th>
+          <th>Waybill</th>
+        </tr>
+      </thead>
+      <tbody id="orders-table-body">
+      </tbody>
+    </table>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-database.js"></script>
+
+    <script>
+      // Initialize Firebase
+      var firebaseConfig = {
+        // Your Firebase configuration
+      };
+      firebase.initializeApp(firebaseConfig);
+
+      // Get a reference to the "Ordersplaced" node
+      var ordersRef = firebase.database().ref("Ordersplaced");
+
+      // Listen for value changes on the orders node
+      ordersRef.on("value", function(snapshot) {
+        // Clear the table body
+        var tableBody = document.getElementById("orders-table-body");
+        tableBody.innerHTML = "";
+
+        // Loop through each order and add a row to the table
+        snapshot.forEach(function(childSnapshot) {
+          var orderId = childSnapshot.key;
+          var orderData = childSnapshot.val().data;
+          var orderName = orderData.shipments[0].name;
+          var orderPhone = orderData.shipments[0].phone;
+          var orderEmail = orderData.shipments[0].email;
+          var orderAddress = orderData.shipments[0].add + ", " + orderData.shipments[0].add2 + ", " + orderData.shipments[0].pin;
+
+          // Combine all products into a single string
+          var products = "";
+          orderData.shipments[0].products.forEach(function(product) {
+            products += product.product_name + " (" + product.product_quantity + "), ";
+          });
+          products = products.slice(0, -2); // Remove the trailing comma and space
+
+          var orderTotalAmount = orderData.shipments[0].total_amount;
+          var orderLogistics = orderData.logistics;
+          var orderWaybill = orderData.shipments[0].waybill;
+
+          var newRow = tableBody.insertRow();
+          newRow.innerHTML = "<td>" + orderId + "</td>" +
+                             "<td>" + orderName + "</td>" +
+                             "<td>" + orderPhone + "</td>" +
+                             "<td>" + orderEmail + "</td>" +
+                             "<td>" + orderAddress + "</td>" +
+                             "<td>" + products + "</td>" +
+                             "<td>" + orderTotalAmount + "</td>" +
+                             "<td>" + orderLogistics + "</td>" +
+                             "<td>" + orderWaybill + "</td>";
+        });
+      });
+    </script>
+  </body>
+</html>

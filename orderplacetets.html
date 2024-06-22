@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script>
+        var firebaseConfig = {
+  // Your Firebase configuration here
+  apiKey: "AIzaSyBQ75mL_tGG7DHgjh3u0_n_m-H6i3Qg_xM",
+authDomain: "test-pastmoos.firebaseapp.com",
+databaseURL: "https://test-pastmoos-default-rtdb.firebaseio.com",
+projectId: "test-pastmoos",
+storageBucket: "test-pastmoos.appspot.com",
+messagingSenderId: "130244640247",
+appId: "1:130244640247:web:62192c97a93d81ba95c2f2",
+measurementId: "G-XFD7NKTDZV"
+};
+firebase.initializeApp(firebaseConfig);
+sessionStorage.setItem('userloggedin', '+918290776196');
+
+// Get a reference to the "Cart" node in the database
+var cartRef = firebase.database().ref("Cart").orderByChild('phone').equalTo(sessionStorage.getItem('userloggedin'));;
+
+// Fetch the data from the database and handle any errors
+cartRef.once('value')
+  .then(function(snapshot) {
+    // Extract the cart data from the snapshot
+    var cartData = snapshot.val();
+
+    // Create the products array in the data object
+    var products = [];
+    for (var key in cartData.products) {
+      if (cartData.products.hasOwnProperty(key)) {
+        var product = cartData.products[key];
+        products.push({
+          "product_name": product.name,
+          "product_quantity": product.quantity,
+          "product_price": product.price
+        });
+      }
+    }
+
+
+    // placing order start 
+    function placeorder() {
+  // Create a new Date object
+  const now = new Date();
+
+  // Get the current minutes and seconds, padded with leading zeros if necessary
+  const minutes = now.getMinutes().toString().padStart(2, "0");
+  const seconds = now.getSeconds().toString().padStart(2, "0");
+
+  // Format the date as a string (in MM/DD/YYYY format)
+  const dateStr = `${now.getMonth() + 1}${now.getDate()}${now.getFullYear()}`;
+  const date=`${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()}`
+
+  // Combine the date, minutes, and seconds into a single string
+  const combinedStr = `${dateStr}${minutes}${seconds}`;
+
+  // Print the combined string to the console
+  console.log(combinedStr);
+  totalToPay = 400;
+  logistics = sessionStorage.getItem('logistics');
+  
+  
+  // Get the product names, quantities, and discount prices from the user
+  const numProducts = parseInt(cartLength);
+//   const productNames = [];
+//   const productQuantities = [];
+//   const productDiscountPrices = [];
+//   for (let i = 0; i < numProducts; i++) {
+//     const name = prompt(`Enter the name of product ${i + 1}:`);
+//     const quantity = '1';
+//     const discountPrice = parseFloat(prompt(`Enter the discount price of ${name}:`));
+//     productNames.push(name);
+//     productQuantities.push(quantity);
+//     productDiscountPrices.push(discountPrice);
+//   }
+  const url = "https://my.ithinklogistics.com/api_v3/order/add.json";
+  var data = {
+      "data": {
+        "shipments": [
+          {
+            "waybill": "pastmoos" + combinedStr,
+            "order": combinedStr,
+            "order_date": date,
+            "total_amount": totalToPay,
+            "name": "shiven",
+            "company_name": "pastmoos",
+            "add": "104 Shreeji",
+            "add2": "",
+            "add3": "",
+            "pin": "560078",
+            "phone": "8290776196",
+            "email": "shivenagg54@gmail.com",
+            "is_billing_same_as_shipping": "yes",
+            "products": products,
+            "shipment_length": "12",
+            "shipment_width": "8",
+            "shipment_height": "2",
+            "weight": "0.5",
+            "cod_amount": "550",
+            "payment_mode": "COD",
+            "return_address_id": "40569"
+          }
+        ],
+        "pickup_address_id": "40569",
+        "access_token": "bdf8a98e100c3df26ef69290849639d0",
+        "secret_key": "f6a4123ac76bbd4f10dd296f03c0d047",
+        "logistics": 'delhivery'
+      }
+    };
+
+    // Add products dynamically
+    for (let i = 0; i < numProducts; i++) {
+      data.data.shipments[0].products.push({
+        "product_name": "",
+        "product_quantity": "",
+        "product_price": ""
+      });
+    }
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+
+    fetch('placeorder.php', options)
+      .then(response => {response.json();})
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
+  }})
+  .catch(function(error) {
+    console.error(error);
+  });
+
+// placing order end 
+
+
+placeorder();
+
+    </script>
+    <!-- <script>
+       function placeorder() {
+  // Create a new Date object
+  const now = new Date();
+
+  // Get the current minutes and seconds, padded with leading zeros if necessary
+  const minutes = now.getMinutes().toString().padStart(2, "0");
+  const seconds = now.getSeconds().toString().padStart(2, "0");
+
+  // Format the date as a string (in MM/DD/YYYY format)
+  const dateStr = `${now.getMonth() + 1}${now.getDate()}${now.getFullYear()}`;
+  const date=`${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()}`
+
+  // Combine the date, minutes, and seconds into a single string
+  const combinedStr = `${dateStr}${minutes}${seconds}`;
+
+  // Print the combined string to the console
+  console.log(combinedStr);
+
+  // Get the user input for product details
+  const numProducts = parseInt(document.getElementById('numproductsid').value);
+  const productNames = [];
+  const productQuantities = [];
+  const productDiscountPrices = [];
+
+  for (let i = 1; i <= numProducts; i++) {
+    productNames.push(document.getElementById(`productname${i}`).value);
+    productQuantities.push(parseInt(document.getElementById(`productquantity${i}`).value));
+    productDiscountPrices.push(parseFloat(document.getElementById(`productdiscount${i}`).value));
+  }
+
+  // Construct the API request data object
+  const totalToPay = document.getElementById('totaltopayid').textContent;
+  const logistics = sessionStorage.getItem('logistics');
+  const url = "https://my.ithinklogistics.com/api_v3/order/add.json";
+  const data = {
+    "data": {
+      "shipments": [
+        {
+          "waybill": combinedStr,
+          "order": "GK0034",
+          "sub_order": "",
+          "order_date": date,
+          "total_amount": totalToPay,
+          "name": "shiven",
+          "company_name": "pastmoos",
+          "add": "104 Shreeji",
+          "add2": "",
+          "add3": "",
+          "pin": "560078",
+          "phone": "8290776196",
+          "email": "shivenagg54@gmail.com",
+          "is_billing_same_as_shipping": "yes",
+          "products": [],
+          "shipment_length": "12",
+          "shipment_width": "8",
+          "shipment_height": "2",
+          "weight": "0.5",
+          "cod_amount": "550",
+          "payment_mode": "COD",
+          "return_address_id": "40569"
+        }
+      ],
+      "pickup_address_id": "40569",
+      "access_token": "bdf8a98e100c3df26ef69290849639d0",
+      "secret_key": "f6a4123ac76bbd4f10dd296f03c0d047",
+      "logistics": logistics,
+    }
+  };
+
+  // Add the products to the API request data object
+  for (let i = 0; i < numProducts; i++) {
+    data.data.shipments[0].products.push({
+      "product_name": productNames[i],
+      "product_sku": `SKU ${i + 1}`,
+      "product_quantity": productQuantities[i],
+      "product_price": "100",
+      "product_tax_rate": "5",
+      "product_hsn_code": "91308",
+      "product_discount": productDiscountPrices[i]
+    });
+  }
+
+
+
+const options = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(data),
+};
+
+fetch('placeorder.php', options)
+  .then(response => {response.json();})
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+
+}
+    </script> -->
+</body>
+</html>

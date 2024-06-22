@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Centered Div with Glass Morphism and Background Image</title>
+      <!-- CSS FILES -->        
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Sono:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+                      
+      <link rel="stylesheet" href="css/bootstrap.min.css">
+
+      <link rel="stylesheet" href="css/bootstrap-icons.css">
+
+      <link rel="stylesheet" href="css/owl.carousel.min.css">
+      
+      <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+      <link href="css/templatemo-pod-talk.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('images/group.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: 100vh;
+    }
+
+    .centered {
+        padding:10px;
+      width: 400px;
+      /* height: 200px; */
+      margin: 0 auto;
+      margin-top: 100px;
+      border-radius: 20px;
+      background-color: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="centered">
+    <center>
+        <img src="images/logo final.png" width="300px">
+    <div id="holder"  >
+		<div id="done"></div>
+    <h2>OTP Sign Up</h2>
+    <!-- Add two inputs for "phoneNumber" and "code" -->
+    <!-- Add two buttons to submit the inputs -->
+    <div class="phinp"> Phone Number: <br>
+      <!-- <div class="form-group">
+        <span>+91</span>
+        <input type="tel" id="phoneNumber" placeholder="Phone Number">
+    </div> -->
+    <span>+91</span>
+    <input type="tel" id="phoneNumber"  /> <br><br>
+    <button id="sign-in-button" onclick="submitPhoneNumberAuth()" >
+      SIGN IN WITH PHONE
+    </button>   
+    <br>
+</div>
+<br>
+
+    <!-- Add a container for reCaptcha -->
+    <div id="recaptcha-container"></div>  
+
+    OTP Code: <br>
+    <input type="text" id="code" maxlength="6" /> <br>
+    <button id="confirm-code" onclick="submitPhoneNumberAuthCode()" >
+      ENTER CODE
+    </button>
+    <!-- <p id="notes" >1. Enter phone number with + and country code, then click Sign In with Phone 2. Complete the recaptcha 3. Get the OTP code from your SMS and type/paste it in, then click Enter Code</p> -->
+    </div>
+
+
+
+    <div class="main div">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+</center>
+
+  </div>
+   <!-- Add the latest firebase dependecies from CDN -->
+   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+   <script>
+     // Place your config here
+     var firebaseConfig = {
+       apiKey: "AIzaSyBQ75mL_tGG7DHgjh3u0_n_m-H6i3Qg_xM",
+ authDomain: "test-pastmoos.firebaseapp.com",
+ databaseURL: "https://test-pastmoos-default-rtdb.firebaseio.com",
+ projectId: "test-pastmoos",
+ storageBucket: "test-pastmoos.appspot.com",
+ messagingSenderId: "130244640247",
+ appId: "1:130244640247:web:62192c97a93d81ba95c2f2",
+ measurementId: "G-XFD7NKTDZV"
+     };
+
+     firebase.initializeApp(firebaseConfig);
+
+     // Create a Recaptcha verifier instance globally
+     // Calls submitPhoneNumberAuth() when the captcha is verified
+     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+       "recaptcha-container",
+       {
+         size: "invisible",
+         callback: function(response) {
+           submitPhoneNumberAuth();
+         }
+       }
+     );
+
+     // This function runs when the 'sign-in-button' is clicked
+     // Takes the value from the 'phoneNumber' input and sends SMS to that phone number
+     function submitPhoneNumberAuth() {
+       var phoneNumber = '+91'+ document.getElementById("phoneNumber").value;
+     
+       var appVerifier = window.recaptchaVerifier;
+       firebase
+         .auth()
+         .signInWithPhoneNumber(phoneNumber, appVerifier)
+         .then(function(confirmationResult) {
+           window.confirmationResult = confirmationResult;
+         })
+         .catch(function(error) {
+           console.log(error);
+         });
+     }
+
+     // This function runs when the 'confirm-code' button is clicked
+     // Takes the value from the 'code' input and submits the code to verify the phone number
+     // Return a user object if the authentication was successful, and auth is complete
+     function submitPhoneNumberAuthCode() {
+       var code = document.getElementById("code").value;
+       confirmationResult
+         .confirm(code)
+         .then(function(result) {
+           var user = result.user;
+           //;
+           document.getElementById("done").innerHTML = "OTP completed";
+           // window.AppInventor.setWebViewString(JSON.stringify(user));
+           window.location.href = 'index.html';
+         })
+         .catch(function(error) {
+           console.log(error);
+         
+         });
+     }
+
+     //This function runs everytime the auth state changes. Use to verify if the user is logged in
+     firebase.auth().onAuthStateChanged(function(user) {
+       if (user) {
+         console.log("USER LOGGED IN");
+         console.log(user.phoneNumber);
+         
+       } else {
+         // No user is signed in.
+         console.log("USER NOT LOGGED IN");
+       }
+     });
+   </script>
+</body>
+</html>

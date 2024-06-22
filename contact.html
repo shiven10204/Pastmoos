@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Pod Talk - Contact Page</title>
+
+        <!-- CSS FILES -->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Sono:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+                        
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+
+        <link rel="stylesheet" href="css/bootstrap-icons.css">
+
+        <link rel="stylesheet" href="css/owl.carousel.min.css">
+        
+        <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+        <link href="css/templatemo-pod-talk.css" rel="stylesheet">
+<!--
+
+TemplateMo 584 Pod Talk
+
+https://templatemo.com/tm-584-pod-talk
+
+-->
+    </head>
+    
+    <body>
+
+        <main>
+            <nav class="navbar navbar-expand-lg" id="navbar" >
+                <div class="container">
+                    <a class="navbar-brand me-lg-5 me-0" href="index.html">
+                        <img src="images/logo final.png" class="logo-image img-fluid" alt="Pastmoose" >
+                    </a>
+
+                    <form action="#" method="get" class="custom-form search-form flex-fill me-3" role="search">
+                        <div class="input-group input-group-lg">    
+                            <!-- <input name="search" type="search" class="form-control" id="search" placeholder="Search & Moos" aria-label="Search">
+
+                            <button type="submit" class="form-control" id="submit">
+                                <i class="bi-search"></i> -->
+                               
+                            </button>
+                        </div>
+                    </form>
+    
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                </button>
+    
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-lg-auto">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="index.html">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="listing-page.html" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
+
+                                <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                                    <li><a class="dropdown-item" onclick="prodcatpos()" style="cursor: pointer;">Posters</a></li>
+                                    <li><a class="dropdown-item" onclick="prodcatst()" style="cursor: pointer;">Stickers</a></li>
+
+                                    
+
+
+                                </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="about.html">About</a>
+                            </li>
+
+                          
+    
+                            <li class="nav-item">
+                                <a class="nav-link" href="contact.html">Contact</a>
+                            </li>
+                            <!-- <div class="ms-4">
+                                <a href="cart.html" class="btn custom-btn custom-border-btn smoothscroll">Cart</a>
+                            </div> -->
+
+                        <!-- <div class="ms-4">
+                            <a href="#section_3" class="btn custom-btn custom-border-btn smoothscroll" id="logbtn">Sign In / Sign Up</a>
+                        </div>
+                        <div class="ms-4">
+                            <a href="#section_3" class="btn custom-btn custom-border-btn smoothscroll" id="logout-button">Log Out</a>
+                        </div> -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="logbtn" role="button" data-bs-toggle="dropdown" aria-expanded="false">Sign In / Sign Up</a>
+
+                            <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                                <li><a class="dropdown-item" id="cartbtn" href="cart.html">Cart</a></li>
+
+                                <li><a class="dropdown-item" id="logout-button" style="cursor: pointer;">Log Out</a></li>
+
+                            </ul>
+                        </li>
+                        <a  class="btn custom-btn custom-border-btn smoothscroll" id="logbtnc" class="logbtnc" href="login.html">Sign In / Sign Up</a>
+
+                    </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <header class="site-header d-flex flex-column justify-content-center align-items-center">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-12 col-12 text-center">
+
+                            <h2 class="mb-0">Contact Page</h2>
+                        </div>
+
+                    </div>
+                </div>
+            </header>
+            
+
+          
+
+            <section class="contact-section section-padding pt-0">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-8 col-12 mx-auto">
+                            <div class="section-title-wrap mb-5">
+                                <h4 class="section-title">Contact Us</h4>
+                            </div>
+
+                            <form action="#" method="post" class="custom-form contact-form" role="form">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="form-floating">
+                                            <input type="text" name="full-name" id="full-name" class="form-control" placeholder="Full Name" required="">
+                                            
+                                            <label for="floatingInput">Full Name</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6 col-12"> 
+                                        <div class="form-floating">
+                                            <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address" required="">
+                                            
+                                            <label for="floatingInput">Email address</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-12">
+                                        <div class="form-floating">
+                                            <input type="text" name="company" id="name" class="form-control" placeholder="Name" required="">
+                                            
+                                            <label for="floatingInput">Company</label>
+                                        </div>
+
+                                        <div class="form-floating">
+                                            <textarea class="form-control" id="message" name="message" placeholder="Describe message here"></textarea>
+                                            
+                                            <label for="floatingTextarea">Describe message here</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-12 ms-auto">
+                                        <button type="submit" class="form-control">Submit</button>
+                                    </div>
+
+                                </div>
+                            </form>
+                            <h4> Or mail us at pastmoos01@gmail.com</h4>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </main>
+
+
+      
+
+        <!-- JAVASCRIPT FILES -->
+         <!-- nav bar script  -->
+         <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+         <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+        
+    
+         <script>
+            function prodcatst(){
+    sessionStorage.setItem('productcat', 'sticker');
+  window.location.href="listing-page.html";
+
+}
+function prodcatpos(){
+    sessionStorage.setItem('productcat', 'poster');
+  window.location.href="listing-page.html";
+
+}
+          // Place your config here
+          var firebaseConfig = {
+            apiKey: "AIzaSyBQ75mL_tGG7DHgjh3u0_n_m-H6i3Qg_xM",
+      authDomain: "test-pastmoos.firebaseapp.com",
+      databaseURL: "https://test-pastmoos-default-rtdb.firebaseio.com",
+      projectId: "test-pastmoos",
+      storageBucket: "test-pastmoos.appspot.com",
+      messagingSenderId: "130244640247",
+      appId: "1:130244640247:web:62192c97a93d81ba95c2f2",
+      measurementId: "G-XFD7NKTDZV"
+          };
+    
+          firebase.initializeApp(firebaseConfig);
+    
+          const loginButton = document.getElementById("logbtn");
+
+         
+          firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+              document.getElementById('logbtn').textContent= user.phoneNumber;
+              document.getElementById('logbtnc').style.display="none";
+
+              
+
+              ;
+              sessionStorage.setItem('userloggedin', user.phoneNumber)
+            } else {
+              // No user is signed in.
+              console.log("USER NOT LOGGED IN");
+              document.getElementById('logout-button').style.display="none";
+              document.getElementById('cartbtn').style.display="none";
+              document.getElementById('logbtn').style.display="none";
+              document.getElementsByClassName('logbtnc').style.display="inline-block";
+
+
+
+              
+
+              loginButton.addEventListener("click", function() {
+    window.location.href = 'login.html';
+
+
+              });
+              document.getElementById('logbtnc').addEventListener("click", function() {
+    window.location.href = 'login.html';
+
+
+              });
+
+            }
+          });
+
+          const logoutButton = document.getElementById("logout-button");
+
+logoutButton.addEventListener("click", function() {
+  firebase.auth().signOut().then(function() {
+    // Sign-out successful.
+    console.log("User logged out successfully");
+    window.location.href = 'index.html';
+    
+  }).catch(function(error) {
+    // An error happened.
+    console.error("Error logging out user:", error);
+  });
+});
+//  function gotop(){
+
+//     sessionStorage.setItem('prod', document.getElementsByClassName('topics').textContent);
+//     console.log(sessionStorage.getItem('prod'))
+//  }
+
+
+        </script>
+
+        <!-- nav bar script end  -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/custom.js"></script>
+
+    </body>
+</html>

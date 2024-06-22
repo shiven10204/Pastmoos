@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="validateForm()">place order </button>
+    <script>
+       function validateForm() {
+  // Create a new Date object
+  const now = new Date();
+
+  // Get the current minutes and seconds, padded with leading zeros if necessary
+  const minutes = now.getMinutes().toString().padStart(2, "0");
+  const seconds = now.getSeconds().toString().padStart(2, "0");
+
+  // Format the date as a string (in MM/DD/YYYY format)
+  const dateStr = `${now.getMonth() + 1}${now.getDate()}${now.getFullYear()}`;
+  const date= `${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()}`;
+
+  // Combine the date, minutes, and seconds into a single string
+  const combinedStr = `${dateStr}${minutes}${seconds}`;
+
+  // Print the combined string to the console
+  console.log(combinedStr);
+
+  const url = "https://my.ithinklogistics.com/api_v3/order/add.json";
+const data = {
+  "data": {
+    "shipments": [
+      {
+        "waybill": "pastmoos"+ combinedStr,
+        "order": combinedStr,
+        "order_date": date,
+        "total_amount": "200",
+        "name": "shiven",
+        "company_name": "pastmoos",
+        "add": "104 Shreeji",
+        "add2": "",
+        "add3": "",
+        "pin": "560078",
+        "phone": "8290776196",
+        "email": "shivenagg54@gmail.com",
+        "is_billing_same_as_shipping": "yes",
+        "products": [],
+        "shipment_length": "12",
+        "shipment_width": "8",
+        "shipment_height": "2",
+        "weight": "0.5",
+        "cod_amount": "250",
+        "payment_mode": "COD",
+        "return_address_id": "40569"
+      }
+    ],
+    "pickup_address_id": "40569",
+    "access_token": "bdf8a98e100c3df26ef69290849639d0",
+    "secret_key": "f6a4123ac76bbd4f10dd296f03c0d047",
+    "logistics": "Kerryindev",
+    "s_type": "ground",
+    "order_type": ""
+  }
+};
+console.log(data);
+
+// Add products dynamically
+const numProducts = 1;
+for (let i = 1; i <= numProducts; i++) {
+  data.data.shipments[0].products.push({
+    "product_name": `Product ${i}`,
+    "product_sku": `SKU ${i}`,
+    "product_quantity": "1",
+    "product_price": "100",
+    "product_tax_rate": "5",
+    "product_hsn_code": "91308",
+    "product_discount": "0"
+  });
+}
+
+const options = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(data),
+};
+
+fetch(url, options)
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+
+}
+
+
+    </script>
+</body>
+</html>
